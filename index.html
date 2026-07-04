@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Summer 26 Roadtrip Recap — Austin Loop</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+  :root{--blue:#1971c2;--dark:#1a1c20;--gray:#68707c;--bg:#f6f7f9;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--dark);}
+  header{background:var(--dark);color:#fff;padding:28px 32px;}
+  header h1{font-size:26px;font-weight:700;}
+  header p{color:#aab2bd;margin-top:6px;font-size:14px;}
+  .wrap{max-width:1100px;margin:0 auto;padding:24px 20px 60px;}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:22px 0;}
+  .stat{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+  .stat .v{font-size:22px;font-weight:700;color:var(--blue);}
+  .stat .l{font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;margin-top:4px;}
+  #map{height:560px;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.15);margin:10px 0 30px;}
+  h2{font-size:19px;margin:30px 0 12px;}
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:14px;}
+  th{background:var(--dark);color:#fff;text-align:left;padding:10px 12px;font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.4px;}
+  td{padding:9px 12px;border-top:1px solid #eceef1;}
+  tr:nth-child(even) td{background:#fafbfc;}
+  .num{text-align:right;font-variant-numeric:tabular-nums;}
+  .note{background:#fff8e1;border-left:4px solid #f0b429;padding:12px 16px;border-radius:6px;font-size:13.5px;margin:18px 0;color:#5c4a12;}
+  .badge{display:inline-block;background:#e7f1fb;color:var(--blue);border-radius:20px;padding:2px 10px;font-size:12px;font-weight:600;margin:2px 3px 2px 0;}
+</style>
+</head>
+<body>
+<header>
+  <h1>Summer 26 — The Big Loop from Austin</h1>
+  <p>2024 Subaru Outback Touring XT &middot; June 20 – July 4, 2026 &middot; 15 days &middot; 8 states</p>
+</header>
+<div class="wrap">
+
+  <div class="stats">
+    <div class="stat"><div class="v">5,089.6 mi</div><div class="l">Total Mileage</div></div>
+    <div class="stat"><div class="v">116 h 26 m</div><div class="l">Total Drive Time</div></div>
+    <div class="stat"><div class="v">142</div><div class="l">Trip Logs</div></div>
+    <div class="stat"><div class="v">26,859.0</div><div class="l">Odometer Start</div></div>
+    <div class="stat"><div class="v">31,948.6</div><div class="l">Odometer End</div></div>
+    <div class="stat"><div class="v">43.7 mph</div><div class="l">Avg Moving Speed</div></div>
+    <div class="stat"><div class="v">682.5 mi</div><div class="l">Longest Day (6/20)</div></div>
+    <div class="stat"><div class="v">339.3 mi</div><div class="l">Avg Miles / Day</div></div>
+  </div>
+
+  <div>
+    <span class="badge">Texas</span><span class="badge">New Mexico</span><span class="badge">Colorado</span><span class="badge">Utah</span><span class="badge">Nevada</span><span class="badge">Oregon</span><span class="badge">California</span><span class="badge">Arizona</span>
+  </div>
+
+  <h2>Route Map</h2>
+  <div id="map"></div>
+
+  <h2>Day-by-Day</h2>
+  <table>
+    <tr><th>Day</th><th>Date</th><th>Route</th><th class="num">Miles</th><th>Overnight</th></tr>
+    <tr><td>1</td><td>Sat 6/20</td><td>Austin, TX → Moriarty, NM (Route 66)</td><td class="num">682.5</td><td>Moriarty, NM</td></tr>
+    <tr><td>2</td><td>Sun 6/21</td><td>Moriarty → Bloomfield → Four Corners → Moab, UT</td><td class="num">431.3</td><td>Moab, UT</td></tr>
+    <tr><td>3</td><td>Mon 6/22</td><td>Moab → Spanish Fork → Bonneville Salt Flats → Wendover → Elko, NV</td><td class="num">468.2</td><td>Elko, NV</td></tr>
+    <tr><td>4</td><td>Tue 6/23</td><td>Elko → Winnemucca → Denio → Lakeview → Klamath Falls → Brookings, OR</td><td class="num">642.6</td><td>Brookings, OR</td></tr>
+    <tr><td>5</td><td>Wed 6/24</td><td>Brookings → Crescent City → Redwoods → Eureka, CA</td><td class="num">163.0</td><td>Eureka, CA</td></tr>
+    <tr><td>6</td><td>Thu 6/25</td><td>Eureka → Avenue of the Giants → Drive-Thru Tree → Mendocino Coast → Occidental</td><td class="num">283.5</td><td>Occidental, CA</td></tr>
+    <tr><td>7</td><td>Fri 6/26</td><td>Occidental → San Francisco → Pigeon Point → Santa Cruz → Big Sur → Cambria</td><td class="num">303.8</td><td>Cambria, CA</td></tr>
+    <tr><td>8</td><td>Sat 6/27</td><td>Cambria → Santa Barbara → Redondo Beach → Santa Monica</td><td class="num">282.3</td><td>Santa Monica, CA</td></tr>
+    <tr><td>9</td><td>Sun 6/28</td><td>Los Angeles — Manhattan Beach day</td><td class="num">30.7</td><td>Santa Monica, CA</td></tr>
+    <tr><td>10</td><td>Mon 6/29</td><td>Los Angeles — Santa Monica day</td><td class="num">6.5</td><td>Santa Monica, CA</td></tr>
+    <tr><td>11</td><td>Tue 6/30</td><td>Los Angeles — The Grove / La Brea / Silver Lake</td><td class="num">23.3</td><td>Los Angeles, CA</td></tr>
+    <tr><td>12</td><td>Wed 7/01</td><td>LA → Barstow → Kingman → Tusayan, AZ</td><td class="num">530.1</td><td>Tusayan, AZ</td></tr>
+    <tr><td>13</td><td>Thu 7/02</td><td>Grand Canyon → Cameron → Holbrook → Grants → Albuquerque, NM</td><td class="num">442.0</td><td>Albuquerque, NM</td></tr>
+    <tr><td>14</td><td>Fri 7/03</td><td>Albuquerque → Fort Sumner → Plains → San Angelo, TX</td><td class="num">567.4</td><td>San Angelo, TX</td></tr>
+    <tr><td>15</td><td>Sat 7/04</td><td>San Angelo → Llano → Austin (arrived 2:57 PM)</td><td class="num">232.4</td><td>Home 🏠</td></tr>
+    <tr><td colspan="3" style="font-weight:700">Total</td><td class="num" style="font-weight:700">5,089.6</td><td></td></tr>
+  </table>
+
+  <div class="note">
+    <b>Why your MySubaru recap always looked incomplete:</b> the "Summer 26" Driving Journal on the site only covers 6/21–7/02 (120 logs, 3,360.5 mi, 88 h 04 m, odometer 27,541.5 → 30,902.0). The trip logs for the evening of 7/02 after Holbrook, plus all of 7/03 and 7/04 (21 logs, 1,046.6 mi, 18 h 52 m), exist in Trip Tracker but were never added to the journal — and the 6/20 Austin → Moriarty leg (682.5 mi) predates the tracker session entirely. To fix it on the site: edit the journal's end date to 7/04/26 so it picks up the remaining logs.
+  </div>
+
+  <h2>The Missing Legs (after Holbrook, AZ)</h2>
+  <table>
+    <tr><th>#</th><th>Date</th><th>Time</th><th>From → To</th><th class="num">Miles</th><th class="num">Duration</th></tr>
+    <tr><td>122</td><td>7/02</td><td>7:53 PM – 10:25 PM</td><td>Holbrook, AZ → Grants, NM</td><td class="num">170.9</td><td class="num">2 h 31 m</td></tr>
+    <tr><td>123–125</td><td>7/02</td><td>10:25 – 10:44 PM</td><td>Grants, NM (fuel/hotel stops)</td><td class="num">0.1</td><td class="num">1 m</td></tr>
+    <tr><td>126</td><td>7/02</td><td>10:44 PM – 11:58 PM</td><td>Grants → Albuquerque, NM</td><td class="num">75.8</td><td class="num">1 h 13 m</td></tr>
+    <tr><td>127–129</td><td>7/03</td><td>12:22 – 12:52 AM</td><td>Albuquerque late-night moves</td><td class="num">6.6</td><td class="num">24 m</td></tr>
+    <tr><td>130–131</td><td>7/03</td><td>10:11 AM – 1:32 PM</td><td>Albuquerque → Fort Sumner, NM</td><td class="num">160.6</td><td class="num">2 h 19 m</td></tr>
+    <tr><td>132</td><td>7/03</td><td>1:49 PM – 5:43 PM</td><td>Fort Sumner, NM → Plains, TX</td><td class="num">192.2</td><td class="num">3 h 53 m</td></tr>
+    <tr><td>133</td><td>7/03</td><td>5:56 PM – 9:17 PM</td><td>Plains → San Angelo, TX</td><td class="num">206.4</td><td class="num">3 h 20 m</td></tr>
+    <tr><td>134–135</td><td>7/03</td><td>9:22 – 10:57 PM</td><td>San Angelo (to hotel)</td><td class="num">1.6</td><td class="num">13 m</td></tr>
+    <tr><td>136–137</td><td>7/04</td><td>8:12 – 8:27 AM</td><td>San Angelo (hotel shuffle)</td><td class="num">0.2</td><td class="num">14 m</td></tr>
+    <tr><td>138</td><td>7/04</td><td>9:00 AM – 11:03 AM</td><td>San Angelo → Llano, TX</td><td class="num">126.4</td><td class="num">2 h 2 m</td></tr>
+    <tr><td>139</td><td>7/04</td><td>11:11 AM – 1:02 PM</td><td>Llano → Austin-Bergstrom Airport</td><td class="num">89.5</td><td class="num">1 h 50 m</td></tr>
+    <tr><td>140</td><td>7/04</td><td>1:03 PM – 1:26 PM</td><td>Airport → South Austin</td><td class="num">12.3</td><td class="num">23 m</td></tr>
+    <tr><td>141–142</td><td>7/04</td><td>1:56 PM – 2:57 PM</td><td>South Austin errands</td><td class="num">4.0</td><td class="num">29 m</td></tr>
+    <tr><td colspan="4" style="font-weight:700">Missing-segment total</td><td class="num" style="font-weight:700">1,046.6</td><td class="num" style="font-weight:700">18 h 52 m</td></tr>
+  </table>
+
+  <h2>Official MySubaru Journal vs. Complete Trip</h2>
+  <table>
+    <tr><th></th><th>"Summer 26" Journal (site)</th><th>Complete Trip (this recap)</th></tr>
+    <tr><td>Dates</td><td>6/21/26 – 7/02/26</td><td>6/20/26 – 7/04/26</td></tr>
+    <tr><td>Trip Logs</td><td>120</td><td>142</td></tr>
+    <tr><td>Mileage</td><td>3,360.5 mi</td><td>5,089.6 mi</td></tr>
+    <tr><td>Drive Time</td><td>88 h 04 m</td><td>116 h 26 m</td></tr>
+    <tr><td>Odometer</td><td>27,541.5 → 30,902.0</td><td>26,859.0 → 31,948.6</td></tr>
+  </table>
+
+</div>
+
+<script>
+const map = L.map('map');
+const track=[[30.2672,-97.7431],[30.20806,-97.81752],[30.30522,-97.93597],[30.72855,-98.65035],[30.73871,-98.67612],[30.75784,-98.67568],[30.83397,-98.80462],[30.94053,-99.11814],[31.11338,-99.33499],[31.20585,-99.55589],[31.35565,-100.20499],[31.8369,-100.99344],[31.96238,-101.21814],[32.02452,-101.3123],[32.32922,-101.51076],[32.34427,-101.51531],[32.72767,-101.9489],[32.89978,-102.09843],[32.93416,-102.12762],[32.9022,-102.10062],[32.93993,-102.13068],[32.95648,-102.13934],[32.97707,-102.15343],[32.98736,-102.16414],[33.15491,-102.28361],[33.18281,-102.49247],[33.18182,-102.62239],[33.18422,-102.81703],[33.25697,-103.34245],[33.30036,-103.47394],[33.31479,-103.51122],[33.3679,-103.64932],[33.39488,-104.43273],[33.39445,-104.5206],[33.41758,-104.52303],[33.45002,-104.52638],[33.50311,-104.51929],[34.59432,-105.19064],[34.61054,-105.36422],[34.61971,-105.38082],[34.6481,-105.44784],[35.00511,-106.04393],[33.3964,-104.3782],[33.397,-104.3977],[33.3977,-104.4181],[33.3944,-104.4424],[33.3943,-104.4645],[33.3942,-104.4944],[34.6088,-105.3605],[34.6481,-105.4478],[35.00531,-106.04399],[36.70687,-107.98496],[36.78261,-108.68823],[36.76639,-108.6973],[36.70678,-108.70911],[36.68328,-108.71929],[36.65489,-108.77366],[36.64382,-108.79906],[36.6453,-108.81644],[36.78131,-108.69171],[36.99978,-108.74943],[37.09708,-108.73156],[37.21624,-108.67798],[37.48363,-108.66213],[37.81501,-109.03713],[38.07211,-109.34933],[38.23756,-109.37936],[38.27339,-109.37257],[38.3965,-109.45107],[38.46742,-109.45064],[38.49864,-109.47403],[38.54606,-109.52098],[38.55649,-109.5403],[36.6447,-108.7932],[37.0066,-108.7484],[37.0298,-108.7428],[37.0557,-108.7363],[37.0709,-108.7396],[37.1247,-108.7208],[37.2626,-108.6394],[37.8151,-109.0376],[37.8332,-109.0998],[37.8383,-109.1178],[37.8477,-109.1541],[37.8727,-109.3421],[37.99,-109.3533],[38.0543,-109.3428],[38.0871,-109.3553],[38.1943,-109.3778],[38.2077,-109.374],[38.2503,-109.3826],[38.2633,-109.3774],[38.3177,-109.4166],[38.3501,-109.4347],[38.3759,-109.4511],[38.3929,-109.4538],[38.4165,-109.439],[38.4339,-109.4282],[38.4711,-109.4541],[38.5007,-109.476],[38.5654,-109.5507],[39.30883,-110.36017],[39.54271,-110.68919],[39.68618,-110.8566],[39.78893,-110.92945],[39.95438,-111.26714],[39.98842,-111.36814],[40.7188,-112.06264],[40.77768,-112.80823],[40.78802,-112.82713],[40.79877,-112.94515],[40.76202,-113.01018],[40.74057,-113.85234],[40.76248,-113.93008],[40.74561,-113.96954],[40.85278,-115.74414],[41.069,-115.3013],[40.85272,-115.74423],[40.72856,-116.03335],[40.85285,-115.74414],[41.95187,-118.62714],[41.99329,-119.32043],[42.17456,-119.80765],[42.17635,-119.89922],[42.21969,-120.21169],[42.21085,-120.3564],[42.18614,-120.43511],[42.17699,-120.47562],[42.21699,-120.68331],[42.31184,-120.80136],[42.20274,-121.60287],[42.17725,-121.60959],[42.17411,-121.74698],[41.7292,-118.5239],[41.7682,-118.5502],[41.8402,-118.5781],[41.9164,-118.7276],[41.9129,-118.9586],[41.9095,-118.9792],[41.8869,-119.1292],[41.994,-119.3211],[42.0039,-119.3362],[42.0173,-119.4812],[42.0848,-119.6163],[42.0999,-119.7204],[42.1745,-119.8138],[42.1762,-119.9167],[42.1754,-119.9407],[42.1811,-119.9712],[42.1958,-120.0049],[42.22,-120.1581],[42.2264,-120.2348],[42.2276,-120.2555],[42.2415,-120.3086],[42.2108,-120.3564],[42.1992,-120.631],[42.1965,-120.6525],[42.2041,-120.6768],[42.4268,-121.3136],[42.1957,-121.6004],[42.1746,-121.6164],[42.1857,-121.6596],[42.1907,-121.7806],[42.2384,-121.8067],[42.2404,-121.835],[42.2947,-121.9307],[42.3151,-121.9426],[42.3776,-122.0006],[42.4023,-122.1831],[42.3964,-122.2965],[42.3956,-122.3225],[42.3864,-122.3541],[42.3874,-122.3869],[42.3887,-122.4052],[42.3909,-122.4358],[42.4145,-123.3969],[42.4045,-123.4431],[42.387,-123.4651],[42.1355,-123.6635],[42.0547,-123.7115],[41.9851,-123.7181],[41.9726,-123.7426],[41.9333,-123.7569],[41.9198,-123.7658],[41.895,-123.7804],[41.8856,-123.8078],[41.8786,-123.8309],[41.8434,-124.0023],[41.8393,-124.0289],[41.8255,-124.0324],[41.7932,-124.0583],[41.8805,-124.1324],[41.9655,-124.2026],[41.985,-124.2039],[42.05661,-124.29488],[42.05243,-124.2691],[42.04241,-124.2542],[42.05609,-124.29448],[42.08965,-124.33062],[42.04282,-124.26662],[42.10042,-124.34392],[42.04282,-124.26662],[42.09999,-124.34477],[42.04282,-124.26662],[42.06604,-124.30202],[42.04282,-124.26662],[42.1892,-124.36591],[41.99841,-124.20836],[42.0566,-124.2949],[41.78998,-124.07859],[41.76476,-124.12427],[41.75849,-124.14547],[41.65794,-124.11531],[42.0543,-124.2668],[41.36253,-124.02189],[42.0429,-124.2666],[42.0836,-124.3239],[42.0958,-124.3366],[42.0842,-124.325],[42.1642,-124.3581],[42.1898,-124.3659],[40.8041,-124.15819],[41.791,-124.0831],[41.7775,-124.0969],[41.7663,-124.1124],[41.7605,-124.1413],[41.7177,-124.1368],[41.6138,-124.106],[41.4279,-124.0371],[41.4098,-124.0312],[41.3625,-124.0219],[40.8041,-124.157],[40.4671,-124.09472],[40.29204,-123.89914],[40.26857,-123.87553],[39.85668,-123.71527],[39.79868,-123.82073],[39.70224,-123.80397],[39.30554,-123.79623],[39.29171,-123.79434],[39.22678,-123.76897],[39.17943,-123.75146],[39.0841,-123.69818],[38.95265,-123.68958],[38.94027,-123.72983],[38.93086,-123.70979],[38.81862,-123.6002],[38.80308,-123.57786],[38.77131,-123.53307],[38.69949,-123.44066],[38.66039,-123.40351],[38.55295,-123.301],[38.5016,-123.21868],[38.47983,-123.16701],[38.46819,-123.15369],[38.40181,-123.09473],[38.37067,-123.07426],[38.33321,-123.0484],[39.3045,-123.8021],[39.2917,-123.7943],[39.1988,-123.7504],[38.9524,-123.6897],[38.9348,-123.7133],[38.9404,-123.73],[38.40602,-122.94841],[38.7,-123.4399],[38.6707,-123.4141],[38.652,-123.3997],[38.6389,-123.3893],[38.6231,-123.3801],[38.584,-123.3376],[38.5566,-123.3047],[38.5443,-123.2927],[38.5347,-123.2772],[38.5258,-123.264],[38.5118,-123.2323],[38.5004,-123.2111],[38.4839,-123.1762],[38.4712,-123.1591],[38.4531,-123.1294],[38.4015,-123.0945],[38.3878,-123.0829],[38.3616,-123.0689],[38.3287,-123.045],[38.3536,-122.9203],[38.40602,-122.94841],[38.38914,-122.93221],[38.32882,-123.04466],[37.8262,-122.47942],[37.80321,-122.45297],[37.79096,-122.42585],[37.77584,-122.42274],[37.75366,-122.41316],[37.18294,-122.39429],[37.10506,-122.28899],[36.9643,-122.0188],[37.8799,-122.5162],[37.8564,-122.4953],[37.8324,-122.4809],[36.3725,-121.90301],[35.5853,-121.12144],[36.3727,-121.9033],[35.58314,-121.11955],[35.569,-121.10419],[35.14304,-120.64157],[34.48952,-120.22626],[34.46986,-120.11166],[34.46154,-120.0837],[34.46236,-120.05397],[34.46399,-120.03481],[34.43299,-119.90004],[34.41634,-119.68739],[34.27955,-119.30812],[34.08432,-119.04038],[34.03801,-118.64957],[34.03758,-118.6317],[34.03963,-118.59641],[34.04191,-118.56834],[33.85856,-118.3719],[34.4696,-120.1133],[34.464,-120.0348],[34.4097,-119.6854],[34.3462,-119.4221],[34.3296,-119.3981],[34.3215,-119.3791],[34.2966,-119.341],[34.2796,-119.3081],[34.0843,-119.0404],[34.0689,-119.0103],[34.0642,-118.9905],[34.0393,-118.5878],[34.02843,-118.47705],[33.93636,-118.43778],[33.88376,-118.41137],[34.0281,-118.4763],[33.88167,-118.41099],[34.03,-118.476],[33.8844,-118.41138],[33.9354,-118.4373],[33.8837,-118.4114],[34.03001,-118.47615],[34.01387,-118.49805],[33.962,-118.37014],[33.95888,-118.34279],[34.0138,-118.4982],[33.9585,-118.342],[34.02995,-118.47602],[33.99414,-118.45293],[34.07206,-118.36029],[34.09904,-118.25898],[34.03003,-118.47615],[34.0991,-118.259],[34.01796,-118.50133],[34.03482,-118.09074],[34.14769,-117.48202],[34.24337,-117.43347],[34.88449,-117.02332],[34.71773,-114.4795],[35.18897,-114.05774],[35.56162,-112.15746],[35.61697,-112.14422],[35.97015,-112.12707],[35.3748,-112.1624],[35.5624,-112.1573],[35.97003,-112.12651],[36.05933,-112.10732],[36.04157,-112.07897],[36.01417,-112.0657],[35.95737,-111.95524],[36.00504,-111.92399],[36.03675,-111.83917],[36.00803,-111.80435],[35.93908,-111.70274],[34.92798,-110.26817],[34.90546,-110.21091],[36.0587,-112.1089],[36.0088,-112.0521],[35.9946,-112.0271],[35.9576,-111.9547],[36.005,-111.924],[36.0225,-111.8573],[36.0385,-111.8376],[35.9391,-111.7027],[35.9375,-111.6582],[35.934,-111.6419],[35.9159,-111.5642],[35.08324,-106.63941],[35.0965,-106.56684],[35.06121,-106.4527],[35.08025,-106.40684],[34.47069,-104.24275],[34.25762,-104.33633],[34.24305,-104.36117],[34.23092,-104.38183],[33.41501,-104.23832],[33.25705,-103.06197],[33.18899,-102.83539],[33.15655,-102.28455],[32.72948,-101.94937],[32.47656,-101.64674],[31.85204,-101.03307],[31.86231,-101.04421],[31.43307,-100.45231],[31.21664,-99.89329],[31.21603,-99.84529],[31.2165,-99.8843],[30.2059,-97.6711],[30.2026,-97.6664]];
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+
+// [lat, lng, label(optional overnight)]
+const route = [
+[30.2672,-97.7431,"Austin, TX — Start 6/20 & Finish 7/04"],
+[31.9640,-102.0779],
+[35.0055,-106.0442,"Night 1 (6/20): Moriarty, NM — 682.5 mi day"],
+[35.0844,-106.6504],
+[36.7110,-107.9840],
+[36.7666,-108.6973],
+[37.5033,-108.7230],
+[38.2734,-109.3725],
+[38.5730,-109.5498,"Night 2 (6/21): Moab, UT"],
+[39.5261,-110.7352],
+[40.0830,-111.6030],
+[40.7621,-113.0101],
+[40.7404,-113.8525],
+[41.1100,-114.9630],
+[40.8480,-115.7510,"Night 3 (6/22): Elko, NV"],
+[40.9650,-117.7270],
+[41.9890,-118.6320],
+[42.1840,-120.3590],
+[42.2020,-121.7490],
+[42.4540,-122.8270],
+[42.0530,-124.2710,"Night 4 (6/23): Brookings, OR — 642.6 mi day"],
+[41.7900,-124.0800],
+[41.3624,-124.0220],
+[40.9380,-124.0890],
+[40.7890,-124.1760,"Night 5 (6/24): Eureka, CA"],
+[40.2630,-123.8740],
+[39.8670,-123.7160],
+[39.2710,-123.7870],
+[38.7660,-123.5310],
+[38.3280,-123.0450],
+[38.4070,-122.9480,"Night 6 (6/25): Occidental, CA"],
+[37.7520,-122.4130],
+[37.1820,-122.3940],
+[36.9640,-122.0250],
+[36.9160,-121.7900],
+[36.2300,-121.7700],
+[35.5770,-121.1060,"Night 7 (6/26): Cambria, CA"],
+[34.4100,-119.6860],
+[33.8730,-118.3770],
+[34.0280,-118.4690,"Nights 8–11 (6/27–6/30): Santa Monica / Los Angeles"],
+[34.0150,-118.1110],
+[34.8890,-117.0430],
+[35.1890,-114.0530],
+[35.9730,-112.1250,"Night 12 (7/01): Tusayan, AZ — Grand Canyon"],
+[36.0490,-112.1220],
+[35.8770,-111.4120],
+[34.9040,-110.1640],
+[35.1470,-107.8510],
+[35.0833,-106.6393,"Night 13 (7/02): Albuquerque, NM — Grand Canyon to ABQ, 442 mi day"],
+[34.4709,-104.2427],
+[33.1890,-102.8350],
+[31.4330,-100.4520,"Night 14 (7/03): San Angelo, TX — 567.4 mi day"],
+[30.7598,-98.6790],
+[30.2027,-97.6664],
+[30.2672,-97.7431]
+];
+
+const latlngs = route.map(p=>[p[0],p[1]]);
+L.polyline(track,{color:'#1971c2',weight:3.5,opacity:.9}).addTo(map);
+
+// Direction arrows via small circle markers at waypoints
+route.forEach((p,i)=>{
+  if(p[2]){
+    const isHome = i===0;
+    const m = L.circleMarker([p[0],p[1]],{radius:isHome?9:7,color:'#fff',weight:2,fillColor:isHome?'#e8590c':'#1971c2',fillOpacity:1}).addTo(map);
+    m.bindPopup('<b>'+p[2]+'</b>');
+    if(isHome) m.bindTooltip('Austin — Start/Finish',{permanent:false});
+  }
+});
+
+map.fitBounds(L.latLngBounds(track).pad(0.06));
+</script>
+</body>
+</html>
